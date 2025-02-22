@@ -1,6 +1,7 @@
 Task Management Application:
 
 Description: 
+
     1.  At first Login and Signup page show.
     2.  after login then go to the Todo create and list page. is the One page app.
     3.  you create the your todo list that showing the page.
@@ -30,12 +31,14 @@ Description:
 
  Installation steps  
 
-    1.  Clone using the following repo link
+1.  Clone using the following repo link
+
             https://github.com/Tazuddin26/todo-client.git
 
-    2.  Go to the project folder and run npm install
+2. Go to the project folder and run npm install
+        
             cd my-first-project
             npm install
+3.  Now run your app
 
-    3.  Now run your app
             npm start
