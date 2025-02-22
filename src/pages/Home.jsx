@@ -2,11 +2,38 @@ import { useForm } from "react-hook-form";
 import TaskPage from "./taskPage/TaskPage";
 import UseAxiosPublic from "../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
-import { io } from "socket.io-client";
-const socket = io("http://localhost:5100");
+// import { io } from "socket.io-client";
+// const socket = io("https://todo-server-rho-bice.vercel.app");
+import io from "socket.io-client";
+import { useEffect } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+const socket = io.connect("http://localhost:5100");
 const Home = () => {
+  const queryClient = useQueryClient();
   const axiosPublic = UseAxiosPublic();
-  
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Connected to WebSocket Server:", socket.id);
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const mutation = useMutation({
+    mutationFn: (newTask) =>
+      axiosPublic.post("/task", newTask).then((res) => res.data),
+    onSuccess: () => {
+      queryClient.invalidateQueries("tasks");
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Task added successfully.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
+  });
   const {
     register,
     handleSubmit,
@@ -15,21 +42,10 @@ const Home = () => {
   } = useForm();
   const onSubmit = async (data) => {
     const formdata = { ...data, category: "ToDo" };
-    console.log("data", data);
-    axiosPublic.post("/task", formdata).then((res) => {
-      if (res.data.insertedId) {
-        reset();
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Payment successfully.",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        // navigate("/");
-      }
-    });
+    mutation.mutate(formdata);
+    reset();
   };
+
   return (
     <div className="mt-4 flex justify-between flex-col lg:flex-row gap-4 ">
       <div className="lg:w-4/6 mx-4 bg-white dark:bg-gray-800">
@@ -40,8 +56,8 @@ const Home = () => {
           <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
             Add to Task
           </h2>
-<hr className="my-4" />
-          <form  onSubmit={handleSubmit(onSubmit)} >
+          <hr className="my-4" />
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="">
               <div>
                 <label className="text-gray-700 dark:text-gray-200 my-4">

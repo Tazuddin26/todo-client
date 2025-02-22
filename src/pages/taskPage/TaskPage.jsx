@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { FaEdit, FaTrash } from "react-icons/fa";
 import UseAxiosPublic from "../../hooks/useAxiosPublic";
 import { useState, useEffect } from "react";
 import Updatetask from "../updateTask.jsx/Updatetask";
 import Swal from "sweetalert2";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { MdCancel, MdEditNote } from "react-icons/md";
+
 // import { io } from "socket.io-client";
-// const socket = io("http://localhost:5100");
+// const socket = io("https://todo-server-rho-bice.vercel.app");
 const TaskPage = () => {
   const axiosPublic = UseAxiosPublic();
   const [isOpen, setIsOpen] = useState(false);
@@ -100,21 +101,31 @@ const TaskPage = () => {
   return (
     <div className="">
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="lg:flex">
+        <div className="lg:flex ">
           {categories.map((category, index) => (
             <Droppable key={index} droppableId={category}>
               {(provided) => (
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className="lg:w-4/12 max-h-screen "
+                  className="lg:w-4/12 max-h-screen p-4 "
                 >
-                  <div className="lg:px-3 lg:py-3 bg-gray-600">
+                  <div
+                    className={`px-3 py-3  rounded-md ${
+                      category === "Done"
+                        ? "bg-green-500"
+                        : category === "InProgress"
+                        ? "bg-yellow-500"
+                        : category === "ToDo"
+                        ? "bg-blue-500"
+                        : "bg-gray-100"
+                    }`}
+                  >
                     <h1 className="text-base text-center uppercase text-gray-200">
                       {category}
                     </h1>
                   </div>
-                  <hr />
+
                   <div>
                     {groupedTasks[category].map((task, index) => (
                       <Draggable
@@ -127,10 +138,10 @@ const TaskPage = () => {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
-                            className="mt-4 space-y-5 xl:mt-6 lg:max-w-72"
+                            className="mt-4 space-y-5 xl:mt-6 lg:max-w-72 "
                           >
                             <div
-                              className={`flex items-center justify-between mx-auto py-6  cursor-pointer rounded-xl dark:border-gray-700"
+                              className={`flex items-center justify-between py-6  cursor-pointer rounded-xl dark:border-gray-700"
                            
                                   ${
                                     task.category === "Done"
@@ -152,8 +163,8 @@ const TaskPage = () => {
                                   </div>
                                 </div>
                               </div>
-                              <div className="w-4/12">
-                                <p className="text-pink-700 text-xs text-center space-y-2">
+                              <div className="w-4/12 flex justify-end items-center ">
+                                <p className="text-pink-700 text-xs text-end space-y-2">
                                   <span className="text-purple-700 font-bold">
                                     {task.createdDate}
                                   </span>{" "}
@@ -162,17 +173,17 @@ const TaskPage = () => {
                                   </span>
                                 </p>
                               </div>
-                              <div className="flex justify-center items-center gap-2 border-l border-gray-700 p-2">
+                              <div className="flex flex-col justify-center items-center gap-4 border-l-2  border-gray-700 p-2">
                                 <button onClick={() => handleDeleteTask(task)}>
-                                  <FaTrash
-                                    size={18}
+                                  <MdCancel
+                                    size={24}
                                     className="text-rose-600"
                                   />
                                 </button>
                                 <button onClick={() => handleEdit(task)}>
-                                  <FaEdit
-                                    size={18}
-                                    className="text-yellow-600"
+                                  <MdEditNote
+                                    size={24}
+                                    className="text-blue-600"
                                   />
                                 </button>
                               </div>

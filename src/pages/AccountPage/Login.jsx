@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import UseAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import UseAxiosPublic from "../../hooks/useAxiosPublic";
+import { SiTodoist } from "react-icons/si";
 
 const Login = () => {
   const { userSignIn, googleSignIn } = UseAuth();
@@ -57,7 +58,7 @@ const Login = () => {
           <div
             className=" bg-cover object-cover object-center w-full"
             style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')`,
+              backgroundImage: `url('https://i.ibb.co.com/nsXdM3Vn/todo2.webp')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
@@ -79,14 +80,15 @@ const Login = () => {
                 <div className="flex-1">
                   <div className="text-center">
                     <div className="flex justify-center mx-auto">
-                      <img
-                        className="w-auto h-7 sm:h-8"
-                        src="https://merakiui.com/images/logo.svg"
-                        alt=""
-                      />
+                      <h1 className="flex items-center gap-1 mt-5">
+                        <SiTodoist size={32} className="text-cyan-600" />{" "}
+                        <span className="uppercase text-rose-500 text-xl font-bold font-mono">
+                          ToDo
+                        </span>
+                      </h1>
                     </div>
 
-                    <p className="mt-3 text-gray-500 dark:text-gray-300">
+                    <p className="mt-3 text-xl font-semibold text-gray-500 dark:text-gray-300">
                       Sign in to access your account
                     </p>
                   </div>

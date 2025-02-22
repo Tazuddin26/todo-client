@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
         path: "/upadateTask",
         element: <Updatetask />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5100/task/${params.id}`),
+          fetch(`https://todo-server-rho-bice.vercel.app/task/${params.id}`),
       },
     ],
   },
