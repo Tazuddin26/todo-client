@@ -27,7 +27,7 @@
 
 <h3>Technologies Used: </h3>
  
-    Frontend: eact-router-Dom 6.28v,@hello-pangea/dnd,Transtack Query, Axios,firebase,react-icons,react-spinners,socket.io-client,sweetalert2
+    Frontend: react-router-Dom 6.28v,@hello-pangea/dnd,Transtack Query, Axios,firebase,react-icons,react-spinners,socket.io-client,sweetalert2
     Backend: Express, Socket.IO, MongoDB,Cors
     State Management: React Query (TanStack Query)
 

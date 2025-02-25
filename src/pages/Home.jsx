@@ -2,23 +2,15 @@ import { useForm } from "react-hook-form";
 import TaskPage from "./taskPage/TaskPage";
 import UseAxiosPublic from "../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
-import { io } from "socket.io-client";
-const socket = io("https://todo-server-rho-bice.vercel.app");
+// import io from "socket.io-client";
+// const socket = io.connect("https://todo-server-rho-bice.vercel.app");
 
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-// const socket = io.connect("http://localhost:5100");
+// const socket = io("http://localhost:5100");
 const Home = () => {
   const queryClient = useQueryClient();
   const axiosPublic = UseAxiosPublic();
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Connected to WebSocket Server:", socket.id);
-    });
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
 
   const mutation = useMutation({
     mutationFn: (newTask) =>

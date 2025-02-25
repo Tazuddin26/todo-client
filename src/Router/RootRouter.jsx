@@ -5,6 +5,7 @@ import Login from "../pages/AccountPage/Login";
 import SignUp from "../pages/AccountPage/SignUp";
 import Updatetask from "../pages/updateTask.jsx/Updatetask";
 import PrivateRoute from "./PrivateRoute";
+import TaskPage from "../pages/taskPage/TaskPage";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,12 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`https://todo-server-rho-bice.vercel.app/task/${params.id}`),
       },
+      // {
+      //   path: "/taskPage",
+      //   element: <TaskPage />,
+      //   loader: ({ params }) =>
+      //     fetch(`https://todo-server-rho-bice.vercel.app/task/${params.id}`),
+      // },
     ],
   },
 ]);
