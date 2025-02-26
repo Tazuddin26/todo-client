@@ -2,20 +2,30 @@ import { useForm } from "react-hook-form";
 import TaskPage from "./taskPage/TaskPage";
 import UseAxiosPublic from "../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
-// import io from "socket.io-client";
-// const socket = io.connect("https://todo-server-1-pmap.onrender.com");
-// const socket = io.connect("http://localhost:5200");
-// import { useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
+import io from "socket.io-client";
+import { useEffect } from "react";
+const socket = io.connect("https://todo-server-1-pmap.onrender.com", {
+  transports: ["websocket"],
+  // withCredentials: true,
+});
 const Home = () => {
   const queryClient = useQueryClient();
   const axiosPublic = UseAxiosPublic();
-
+  useEffect(() => {
+    socket.on("taskAdded", (task) => {
+      console.log("New Task Received:", task);
+      queryClient.invalidateQueries("tasks"); // নতুন ডাটা লোড করা
+    });
+    return () => {
+      socket.off("taskAdded");
+    };
+  }, [queryClient]);
   const mutation = useMutation({
     mutationFn: (newTask) =>
       axiosPublic.post("/task", newTask).then((res) => res.data),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      socket.emit("addTask", data);
       queryClient.invalidateQueries("tasks");
       Swal.fire({
         position: "top-end",
