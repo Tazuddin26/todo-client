@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiOutlineMenuAlt4 } from "react-icons/hi";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import UseAuth from "../../hooks/useAuth";
 import { SiTodoist } from "react-icons/si";
 import { IoNotifications } from "react-icons/io5";
+import { CiLight } from "react-icons/ci";
+import { MdOutlineNightlightRound } from "react-icons/md";
 
 const Navbar = () => {
   const { user, signOutUser } = UseAuth();
@@ -15,11 +17,27 @@ const Navbar = () => {
       .then(() => {})
       .catch((error) => console.log(error));
   };
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+  );
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const localTheme = localStorage.getItem("theme");
+    document.querySelector("html").setAttribute("data-theme", localTheme);
+  }, [theme]);
+
+  const handleToggle = (e) => {
+    if (e.target.checked) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
   const menuLink = (
     <>
-      <Link className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0">
+      {/* <Link className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0">
         Home
-      </Link>
+      </Link> */}
       {user ? (
         <>
           <button
@@ -75,13 +93,26 @@ const Navbar = () => {
             isOpen ? "translate-x-0 opacity-100" : "opacity-0 -translate-x-full"
           }`}
         >
+          <label className="swap swap-rotate lg:mr-4 mr-4">
+            <input
+              className="hidden"
+              type="checkbox"
+              onChange={handleToggle}
+              checked={theme === "light" ? false : true}
+            />
+            <CiLight
+              size={20}
+              className="swap-on h-6 w-6 fill-current border bg-slate-50 rounded-full border-white"
+            />
+            <MdOutlineNightlightRound
+              size={20}
+              className="swap-off transition duration-300 ease-in-out -rotate-45 h-6 w-6 fill-current border bg-slate-200 rounded-full border-stone-950 "
+            />
+          </label>
           <div className="flex flex-col md:flex-row md:mx-6">{menuLink}</div>
 
           <div className="flex justify-center md:block">
-            <a
-              className="relative text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
-              href="#"
-            >
+            <a className="relative text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300">
               <IoNotifications size={24} />
 
               <span className="absolute top-0 left-0 p-1 text-xs text-white bg-blue-500 rounded-full"></span>

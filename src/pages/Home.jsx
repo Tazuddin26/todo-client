@@ -4,10 +4,10 @@ import UseAxiosPublic from "../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 // import io from "socket.io-client";
 // const socket = io.connect("https://todo-server-rho-bice.vercel.app");
-
+// const socket = io.connect("http://localhost:5200");
 // import { useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-// const socket = io("http://localhost:5100");
+
 const Home = () => {
   const queryClient = useQueryClient();
   const axiosPublic = UseAxiosPublic();
@@ -40,7 +40,7 @@ const Home = () => {
 
   return (
     <div className="mt-4 flex justify-between flex-col lg:flex-row gap-4 ">
-      <div className="lg:w-4/6 mx-4 bg-white dark:bg-gray-800">
+      <div className="lg:w-6/6 mx-4 bg-white dark:bg-gray-800">
         <TaskPage />
       </div>
       <div className="lg:w-2/6 px-3 lg:px-0">
