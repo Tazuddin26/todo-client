@@ -40,7 +40,7 @@ const Home = () => {
 
   return (
     <div className="mt-4 flex justify-between flex-col lg:flex-row gap-4 ">
-      <div className="lg:w-6/6 mx-4 bg-white dark:bg-gray-800">
+      <div className="lg:w-4/6 mx-4 bg-white dark:bg-gray-800">
         <TaskPage />
       </div>
       <div className="lg:w-2/6 px-3 lg:px-0">
@@ -69,24 +69,6 @@ const Home = () => {
                   className="block w-full px-4 py-3 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                 />
               </div>
-
-              {/* <div>
-                <label className="text-gray-700 dark:text-gray-200">
-                  Category
-                </label>
-                <select
-                  {...register("category", { required: true })}
-                  // value="category"
-                  className="select select-bordered max-w-xl block w-full px-4 py-2 mt-2 dark:bg-gray-800 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                >
-                  <option disabled value="Task Category">
-                    Task Category
-                  </option>
-                  <option value="todo">ToDo</option>
-                  <option value="progress">In Progress</option>
-                  <option value="done">Done</option>
-                </select>
-              </div> */}
               <div>
                 <label className="block text-sm text-gray-500 dark:text-gray-300">
                   Description
@@ -105,17 +87,6 @@ const Home = () => {
                   className="block  mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-300"
                 ></textarea>
               </div>
-
-              {/* <div>
-              <label className="text-gray-700 dark:text-gray-200">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-              />
-            </div> */}
             </div>
 
             <div className="flex justify-end mt-6">

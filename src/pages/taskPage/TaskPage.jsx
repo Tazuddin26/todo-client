@@ -7,7 +7,10 @@ import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { MdCancel, MdEditNote } from "react-icons/md";
 
 import io from "socket.io-client";
-const socket = io.connect("https://todo-server-1-pmap.onrender.com");
+const socket = io.connect("https://todo-server-1-pmap.onrender.com", {
+  transports: ["websocket"],
+  // withCredentials: true,
+});
 
 const TaskPage = () => {
   const axiosPublic = UseAxiosPublic();
@@ -29,12 +32,17 @@ const TaskPage = () => {
   useEffect(() => {
     socket.on("taskUpdated", (updatedTask) => {
       console.log("New Category:", updatedTask.newCategory);
-      refetch();
+      if (refetch) {
+        refetch();
+      }
     });
     socket.on("taskDelete", (taskId) => {
       console.log("taskDelete", taskId);
-      refetch();
+      if (refetch) {
+        refetch();
+      }
     });
+
     return () => {
       socket.off("taskUpdated");
       socket.off("taskDelete");
@@ -47,7 +55,9 @@ const TaskPage = () => {
       InProgress: tasks.filter((task) => task.category === "InProgress"),
       Done: tasks.filter((task) => task.category === "Done"),
     };
-    setGroupedTasks(taskGroup);
+    if (tasks) {
+      setGroupedTasks(taskGroup);
+    }
   }, [tasks]);
 
   const categories = ["ToDo", "InProgress", "Done"];
@@ -70,7 +80,7 @@ const TaskPage = () => {
       if (result.isConfirmed) {
         const res = await axiosPublic.delete(`/task/${task._id}`);
         console.log("delete id", res.data);
-        socket.emit("taskDeleted", {taskId:task._id});
+        socket.emit("taskDeleted", { taskId: task._id });
         if (res.data.deletedCount > 0) {
           refetch();
           Swal.fire({

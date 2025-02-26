@@ -2,11 +2,27 @@ import { useForm } from "react-hook-form";
 import UseAxiosPublic from "../../hooks/useAxiosPublic";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
-
+import io from "socket.io-client";
+const socket = io.connect("https://todo-server-1-pmap.onrender.com", {
+  transports: ["websocket"],
+  // withCredentials: true,
+});
 const Updatetask = ({ isOpen, setIsOpen, task, refetch }) => {
   console.log(task);
   const axiosPublic = UseAxiosPublic();
   const { register, handleSubmit, reset, setValue, watch } = useForm();
+
+  useEffect(() => {
+    socket.on("tasksUpdated", ({taskId,updatedTasks}) => {
+      console.log("Update Task:", taskId,updatedTasks);
+      if (refetch) {
+        refetch();
+      }
+    });
+    return () => {
+      socket.off("tasksUpdated");
+    };
+  }, [refetch]);
   useEffect(() => {
     if (task) {
       setValue("title", task.title || "");
@@ -23,7 +39,7 @@ const Updatetask = ({ isOpen, setIsOpen, task, refetch }) => {
       description: data?.description,
     };
     const taskUpdate = await axiosPublic.put(`/task/${task._id}`, defaultTask);
-
+    socket.emit("tasksUpdate", { taskId: task._id });
     if (taskUpdate.data.modifiedCount > 0) {
       reset();
       refetch();
@@ -57,9 +73,9 @@ const Updatetask = ({ isOpen, setIsOpen, task, refetch }) => {
           <div className="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
             <div className="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl dark:bg-gray-900 sm:my-8 sm:w-full sm:max-w-sm sm:p-6 sm:align-middle">
               <h3 className="text-lg font-medium leading-6 text-gray-800 capitalize dark:text-white">
-               Edit TaskManage
+                Edit TaskManage
               </h3>
-<hr />
+              <hr />
               <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
                 <div className="">
                   <div>
