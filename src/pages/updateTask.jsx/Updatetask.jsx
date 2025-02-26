@@ -13,8 +13,8 @@ const Updatetask = ({ isOpen, setIsOpen, task, refetch }) => {
   const { register, handleSubmit, reset, setValue, watch } = useForm();
 
   useEffect(() => {
-    socket.on("tasksUpdated", ({taskId,updatedTasks}) => {
-      console.log("Update Task:", taskId,updatedTasks);
+    socket.on("tasksUpdated", ({ taskId, updatedTasks }) => {
+      console.log("Update Task:", taskId, updatedTasks);
       if (refetch) {
         refetch();
       }
@@ -57,13 +57,6 @@ const Updatetask = ({ isOpen, setIsOpen, task, refetch }) => {
   return (
     <div>
       <div className="relative flex justify-center">
-        {/* <button
-          onClick="isOpen = true"
-          className="px-6 py-2 mx-auto tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
-        >
-          Open Modal
-        </button> */}
-
         <div
           className="fixed inset-0 z-10 overflow-y-auto"
           aria-labelledby="modal-title"

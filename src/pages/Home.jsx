@@ -15,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     socket.on("taskAdded", (task) => {
       console.log("New Task Received:", task);
-      queryClient.invalidateQueries("tasks"); // নতুন ডাটা লোড করা
+      queryClient.invalidateQueries("tasks");
     });
     return () => {
       socket.off("taskAdded");
@@ -49,12 +49,12 @@ const Home = () => {
   };
 
   return (
-    <div className="mt-4 flex justify-between flex-col lg:flex-row gap-4 ">
+    <div className="mt-4 flex justify-between flex-col lg:flex-row lg:gap-0 gap-3 ">
       <div className="lg:w-4/6 mx-4 bg-white dark:bg-gray-800">
         <TaskPage />
       </div>
-      <div className="lg:w-2/6 px-3 lg:px-0">
-        <section className="max-w-md p-6  bg-white rounded-md shadow-md dark:bg-gray-800">
+      <div className="lg:w-2/6 px-4 lg:px-0 ">
+        <section className="lg:max-w-md lg:p-8 p-6 bg-white rounded-md shadow-md dark:bg-gray-800">
           <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
             Add to Task
           </h2>

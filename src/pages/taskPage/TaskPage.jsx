@@ -143,7 +143,7 @@ const TaskPage = () => {
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className="lg:w-4/12 max-h-screen p-4 "
+                  className="lg:w-4/12 max-h-screen lg:p-2 p-4"
                 >
                   <div
                     className={`px-3 py-3  rounded-md ${
@@ -173,10 +173,10 @@ const TaskPage = () => {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
-                            className="mt-4 space-y-5 xl:mt-6 lg:max-w-80 "
+                            className="mt-4 space-y-5 xl:mt- lg:max-w-80 "
                           >
                             <div
-                              className={`flex items-center justify-between py-6 cursor-pointer rounded-xl dark:border-gray-700"
+                              className={` border-2 items-center justify-between p-4 cursor-pointer rounded-xl dark:border-gray-700"
                            
                                   ${
                                     task.category === "Done"
@@ -188,39 +188,43 @@ const TaskPage = () => {
                                       : "bg-gray-100"
                                   }`}
                             >
-                              <div className="flex items-center">
-                                <div className="flex flex-col mx-5 text-start space-y-1">
+                              <div className=" items-center">
+                                <div className="flex p-1 justify-between text-start space-y-1">
                                   <h2 className="text-base font-medium text-gray-700 sm:text-xl dark:text-gray-700">
                                     {task.title}
                                   </h2>
-                                  <div className="text-base text-gray-700">
-                                    <p>{task.description}</p>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                  <div className="   justify-end items-center ">
+                                    <p className="text-pink-700 text-xs text-end space-y-2">
+                                      <span className="text-purple-700 font-bold">
+                                        {task.createdDate}
+                                      </span>{" "}
+                                      <span className="font-bold">
+                                        {task.createdTime}
+                                      </span>
+                                    </p>
+                                  </div>
+                                  <div className="flex flex-col justify-center items-center gap-1 border-gray-700">
+                                    <button
+                                      onClick={() => handleDeleteTask(task)}
+                                    >
+                                      <MdCancel
+                                        size={24}
+                                        className="text-rose-600"
+                                      />
+                                    </button>
+                                    <button onClick={() => handleEdit(task)}>
+                                      <MdEditNote
+                                        size={24}
+                                        className="text-blue-600"
+                                      />
+                                    </button>
                                   </div>
                                 </div>
-                              </div>
-                              <div className="w-4/12 flex justify-end items-center ">
-                                <p className="text-pink-700 text-xs text-end space-y-2">
-                                  <span className="text-purple-700 font-bold">
-                                    {task.createdDate}
-                                  </span>{" "}
-                                  <span className="font-bold">
-                                    {task.createdTime}
-                                  </span>
-                                </p>
-                              </div>
-                              <div className="flex flex-col justify-center items-center gap-4 border-l-2  border-gray-700 p-2">
-                                <button onClick={() => handleDeleteTask(task)}>
-                                  <MdCancel
-                                    size={24}
-                                    className="text-rose-600"
-                                  />
-                                </button>
-                                <button onClick={() => handleEdit(task)}>
-                                  <MdEditNote
-                                    size={24}
-                                    className="text-blue-600"
-                                  />
-                                </button>
+                                <div className="text-base text-gray-700 ">
+                                  <p>{task.description}</p>
+                                </div>
                               </div>
                             </div>
                           </div>
