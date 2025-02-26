@@ -12,7 +12,7 @@
 
 <h3>Live Links: </h3>
  
-    https://todo-client-bef17.web.app/   
+    https://todo-client-bef17.web.app/  
 
 <h3>Install Dependencies: </h3>
   Install the required dependencies for both the client and server:
