@@ -33,13 +33,13 @@ export const router = createBrowserRouter([
         path: "/upadateTask",
         element: <Updatetask />,
         loader: ({ params }) =>
-          fetch(`https://todo-server-rho-bice.vercel.app/task/${params.id}`),
+          fetch(`https://todo-server-1-pmap.onrender.com/task/${params.id}`),
       },
       // {
       //   path: "/taskPage",
       //   element: <TaskPage />,
       //   loader: ({ params }) =>
-      //     fetch(`https://todo-server-rho-bice.vercel.app/task/${params.id}`),
+      //     fetch(`https://todo-server-1-pmap.onrender.com/task/${params.id}`),
       // },
     ],
   },

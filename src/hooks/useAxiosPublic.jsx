@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosPublic = axios.create({
-  baseURL: "https://todo-server-rho-bice.vercel.app",
+  baseURL: "https://todo-server-1-pmap.onrender.com",
 });
 const UseAxiosPublic = () => {
   return axiosPublic;
